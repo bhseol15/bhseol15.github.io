@@ -1,1 +1,0 @@
-# bhseol15.github.io
