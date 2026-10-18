@@ -1,0 +1,136 @@
+/* =========================================================
+   Smart QR - 마우스 인터랙티브 그라데이션 & 비주얼 스타일
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --hue-1: 245;  /* 기본 인디고/블루 */
+  --hue-2: 285;  /* 기본 퍼플/바이올렛 */
+  --hue-3: 330;  /* 기본 핑크/로즈 */
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   마우스 인터랙티브 그라데이션 배경 오브젝트
+========================================================= */
+
+#glowBlob1 {
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, hsl(var(--hue-1), 85%, 60%) 0%, transparent 70%);
+}
+
+#glowBlob2 {
+  bottom: -15%;
+  right: -10%;
+  background: radial-gradient(circle, hsl(var(--hue-2), 80%, 60%) 0%, transparent 70%);
+}
+
+#glowBlob3 {
+  top: 35%;
+  left: 30%;
+  background: radial-gradient(circle, hsl(var(--hue-3), 85%, 65%) 0%, transparent 70%);
+}
+
+#mouseSpotlight {
+  background: radial-gradient(circle, hsl(var(--hue-1), 90%, 65%) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+}
+
+/* 사이트 이름 'Smart QR' 텍스트 그라데이션 (마우스 반응형) */
+#siteTitle {
+  background-image: linear-gradient(
+    135deg,
+    hsl(var(--hue-1), 90%, 70%),
+    hsl(var(--hue-2), 85%, 72%),
+    hsl(var(--hue-3), 90%, 75%)
+  );
+}
+
+/* 카드 및 폼 테두리 다이내믹 글로우 */
+#cardGlowBorder,
+#formGlowBorder {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--hue-1), 85%, 65%),
+    hsl(var(--hue-2), 80%, 65%),
+    hsl(var(--hue-3), 85%, 70%)
+  );
+}
+
+/* =========================================================
+   URL 입력창 위치 전환 애니메이션
+   - 초기: 화면 중앙 (center-stage)
+   - 확인 후: 화면 하단 (bottom-dock)
+========================================================= */
+
+#urlInputContainer {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* QR 코드가 생성되었을 때의 하단 도크 위치 */
+body.has-qr #urlInputContainer {
+  top: calc(100% - 5.5rem);
+  transform: translate(-50%, 0);
+  max-width: 32rem;
+}
+
+/* 중앙 헤로 문구 페이드아웃 */
+body.has-qr #heroText {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+  transform: translateY(-16px);
+}
+
+#heroText {
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 220px;
+}
+
+/* =========================================================
+   중앙 QR 코드 카드 페이드인 & 팝업 효과
+========================================================= */
+
+#qrContainer {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%) scale(0.85);
+  transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.has-qr #qrContainer {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  display: flex !important;
+}
+
+/* QR 코드 내부 캔버스 & SVG 반응형 크기 */
+#qrCodeWrapper canvas,
+#qrCodeWrapper svg {
+  display: block !important;
+  width: 250px !important;
+  height: 250px !important;
+  border-radius: 18px;
+}
+
+@media (min-width: 640px) {
+  #qrCodeWrapper canvas,
+  #qrCodeWrapper svg {
+    width: 280px !important;
+    height: 280px !important;
+  }
+}
